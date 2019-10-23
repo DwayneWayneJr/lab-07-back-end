@@ -1,14 +1,43 @@
+'use strict';
+
+// dependancies
+
 const express = require('express');
+
 const cors = require('cors');
+
 require('dotenv').config();
 
+// super agent man thing
+
+
+
+// configure environmental variables
+
 const app = express();
+
 app.use(cors());
 
 const PORT = process.env.PORT || 3003;
 
 
-app.get('/location', (request, response) => {
+
+
+// route
+
+app.get('/location', handleLocation);
+
+app.get('/weather', handleWeather);
+
+app.get('*', (request, response) => {
+  response.status(404).send('Oops');
+});
+
+
+
+// functions
+
+function handleLocation (request, response) {
   try {
     const city = request.query.data;
 
@@ -20,17 +49,14 @@ app.get('/location', (request, response) => {
     console.error(error);
     response.status(500).send('Sorry! Something is not working on our end.');
   }
-});
+}
 
-app.get('/weather', (request, response) => {
+function handleWeather (request, response){
   const data = request.query.data;
   const weather = searchCityWeather(data);
   response.send(weather);
-});
+}
 
-app.get('*', (request, response) => {
-  response.status(404).send('Oops');
-});
 
 function searchLatToLong(location) {
 
@@ -83,6 +109,9 @@ function Location(city, geoData) {
   this.longitude = geoData.results[0].geometry.location.lng;
 }
 
+
+
 //turn on the server
+
 app.listen(PORT, () => console.log(`app is listening on ${PORT}`));
 
