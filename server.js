@@ -1,18 +1,27 @@
 // dependancies
-
-// configure enviromental variables
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+// super agent man thing
 
+// configure environmental variables
 const app = express();
 app.use(cors());
-
 const PORT = process.env.PORT || 3003;
 
 // route
 
-app.get('/location', (request, response) => {
+app.get('/location', handleLocation);
+
+
+app.get('/weather', handleWeather);
+
+app.get('*', (request, response) => {
+  response.status(404).send('Oops');
+});
+
+// functions
+function handleLocation (request, response) {
   try {
     const city = request.query.data;
 
@@ -24,19 +33,14 @@ app.get('/location', (request, response) => {
     console.error(error);
     response.status(500).send('Sorry! Something is not working on our end.');
   }
-});
+}
 
-app.get('/weather', (request, response) => {
+function handleWeather (request, response){
   const data = request.query.data;
   const weather = searchCityWeather(data);
   response.send(weather);
-});
+}
 
-app.get('*', (request, response) => {
-  response.status(404).send('Oops');
-});
-
-// functions
 
 function searchLatToLong(location) {
 
