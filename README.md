@@ -35,12 +35,45 @@ Building a back-end that will request data from 6 different APIs
 
 
 
-# Number and name of feature: lab 07 roz/DJ driving get weather call back
+# Number and name of feature: lab 07 roz/DJ/Ashlyn driving Data Formatting feature
 
 # Estimate of time needed to complete: 20
 
 # Start time: 10:04
 
-# Finish time: 
+# Finish time: 11:39
 
-# Actual time needed to complete: 
+# Actual time needed to complete: 1hour 35 minutes
+
+
+# Number and name of feature: lab 07 Ashlyn driving Locations Feature
+
+# Estimate of time needed to complete: 20
+
+# Start time: 11:40
+
+# Finish time: 11:43
+
+# Actual time needed to complete: 3 minutes (We did part of the work in the Data formatting feature)
+
+
+# Number and name of feature: lab 07 Ashlyn driving Weather Feature
+
+# Estimate of time needed to complete: 20
+
+# Start time: 11:43
+
+# Finish time: 11:45
+
+# Actual time needed to complete:2 minutes (We did part of the work in the Data formatting feature)
+
+
+# Number and name of feature: Event Brite Feature
+
+# Estimate of time needed to complete: 
+
+# Start time: 10:0
+
+# Finish time: 11:39
+
+# Actual time needed to complete:
