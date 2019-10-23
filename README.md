@@ -29,6 +29,18 @@ Building a back-end that will request data from 6 different APIs
 
 # Start time: 9:25
 
-# Finish time: _____
+# Finish time: 9:45
 
-# Actual time needed to complete: _____
+# Actual time needed to complete: 20min
+
+
+
+# Number and name of feature: lab 07 roz driving 
+
+# Estimate of time needed to complete: 
+
+# Start time: 
+
+# Finish time: 
+
+# Actual time needed to complete: 
