@@ -1,3 +1,6 @@
+// dependancies
+
+// configure enviromental variables
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -7,6 +10,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3003;
 
+// route
 
 app.get('/location', (request, response) => {
   try {
@@ -31,6 +35,8 @@ app.get('/weather', (request, response) => {
 app.get('*', (request, response) => {
   response.status(404).send('Oops');
 });
+
+// functions
 
 function searchLatToLong(location) {
 
