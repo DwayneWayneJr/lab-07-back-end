@@ -39,24 +39,34 @@ app.get('*', (request, response) => {
 
 // functions
 
-// let locations = {};
+let locations = {};
 
 function handleLocation(request, response) {
   console.log('handleLocation');
-  try {
-    const city = request.query.data;
+  const city = request.query.data;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.GEOCODE_API_KEY}`;
+  if (locations[url]) {
+    console.log('this works');
+    response.send(locations[url]);
+  } else {
+    console.log('getting data from API');
+    superagent.get(url)
 
-    const locationData = searchLatToLong(city);
+      .then(resultsFromSuperagent => {
+        const locationObject = new Location(city, resultsFromSuperagent.body.results[0]);
+        locations[url] = locationObject;
 
-    // const url =
+        response.status(200).send(locationObject);
+      })
 
-    response.send(locationData);
-  }
-  catch (error) {
-    console.error(error);
-    response.status(500).send('Sorry! Something is not working on our end.');
+      .catch((error) => {
+        console.error(error);
+        response.status(500).send('fix this');
+      });
   }
 }
+
+
 
 function handleWeather(request, response) {
   console.log('handleWeather');
@@ -82,7 +92,7 @@ function searchLatToLong(location) {
   const geoData = require('./data/geo.json');
   console.log(geoData);
 
-  const locationObject = new Location(location, geoData);
+
 
   return locationObject;
 
@@ -116,16 +126,16 @@ function searchCityWeather(location) {
 // "visibility": 3.73,
 // "ozone": 246.96
 
-function Weather(day) {
-  this.forecast = day.summary;
-  this.time = new Date(day.time * 1000).toDateString();
+function Weather(obj) {
+  this.forecast = obj.summary;
+  this.time = new Date(obj.time * 1000).toDateString();
 
 }
 function Location(city, geoData) {
   this.search_query = city;
-  this.formatted_query = geoData.results[0].formatted_address;
-  this.latitude = geoData.results[0].geometry.location.lat;
-  this.longitude = geoData.results[0].geometry.location.lng;
+  this.formatted_query = geoData.formatted_address;
+  this.latitude = geoData.geometry.location.lat;
+  this.longitude = geoData.geometry.location.lng;
 }
 
 
