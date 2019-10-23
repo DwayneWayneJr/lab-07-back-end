@@ -24,7 +24,9 @@ const PORT = process.env.PORT || 3003;
 
 
 // route
-
+app.get('/', (request, response) => {
+  response.send('server running');
+});
 app.get('/location', handleLocation);
 
 app.get('/weather', handleWeather);
@@ -37,11 +39,16 @@ app.get('*', (request, response) => {
 
 // functions
 
-function handleLocation (request, response) {
+// let locations = {};
+
+function handleLocation(request, response) {
+  console.log('handleLocation');
   try {
     const city = request.query.data;
 
     const locationData = searchLatToLong(city);
+
+    // const url =
 
     response.send(locationData);
   }
@@ -51,10 +58,22 @@ function handleLocation (request, response) {
   }
 }
 
-function handleWeather (request, response){
-  const data = request.query.data;
-  const weather = searchCityWeather(data);
-  response.send(weather);
+function handleWeather(request, response) {
+  console.log('handleWeather');
+  const weatherObject = request.query.data;
+  const url = `https://api.darksky.net/forecast/${process.env.DARK_SKY_API_KEY}/${weatherObject.latitude},${weatherObject.longitude}`;
+  superagent.get(url)
+    .then(resultsFromSuperAgent => {
+      const weeklyWeather = resultsFromSuperAgent.body.daily.data.map(day => {
+        return new Weather(day);
+      });
+      response.status(200).send(weeklyWeather);
+
+    })
+    .catch((error) => {
+      console.error(error);
+      response.status(500).send('Oops, sorry.');
+    });
 }
 
 
