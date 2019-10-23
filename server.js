@@ -1,18 +1,31 @@
+'use strict';
+
 // dependancies
+
 const express = require('express');
+
 const cors = require('cors');
+
 require('dotenv').config();
+
 // super agent man thing
 
+
+
 // configure environmental variables
+
 const app = express();
+
 app.use(cors());
+
 const PORT = process.env.PORT || 3003;
+
+
+
 
 // route
 
 app.get('/location', handleLocation);
-
 
 app.get('/weather', handleWeather);
 
@@ -20,7 +33,10 @@ app.get('*', (request, response) => {
   response.status(404).send('Oops');
 });
 
+
+
 // functions
+
 function handleLocation (request, response) {
   try {
     const city = request.query.data;
@@ -93,6 +109,9 @@ function Location(city, geoData) {
   this.longitude = geoData.results[0].geometry.location.lng;
 }
 
+
+
 //turn on the server
+
 app.listen(PORT, () => console.log(`app is listening on ${PORT}`));
 
