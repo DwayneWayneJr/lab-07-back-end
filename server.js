@@ -53,7 +53,9 @@ function handleLocation(request, response) {
     superagent.get(url)
 
       .then(resultsFromSuperagent => {
+        console.log(resultsFromSuperagent.body.results[0].formatted_address);
         const locationObject = new Location(city, resultsFromSuperagent.body.results[0]);
+
         locations[url] = locationObject;
 
         response.status(200).send(locationObject);
@@ -86,17 +88,6 @@ function handleWeather(request, response) {
     });
 }
 
-
-function searchLatToLong(location) {
-
-  const geoData = require('./data/geo.json');
-  console.log(geoData);
-
-
-
-  return locationObject;
-
-}
 function searchCityWeather(location) {
 
   const drkSky = require('./data/darksky.json');
@@ -137,7 +128,14 @@ function Location(city, geoData) {
   this.latitude = geoData.geometry.location.lat;
   this.longitude = geoData.geometry.location.lng;
 }
-
+// { results:
+//   [ { address_components: [Array],
+//       formatted_address: 'Seattle, WA, USA',
+//       geometry: [Object],
+//       place_id: 'ChIJVTPokywQkFQRmtVEaUZlJRA',
+//       types: [Array] } ],
+//  status: 'OK' }
+// handleWeather
 
 
 //turn on the server
