@@ -35,11 +35,11 @@ Building a back-end that will request data from 6 different APIs
 
 
 
-# Number and name of feature: lab 07 roz driving 
+# Number and name of feature: lab 07 roz/DJ driving get weather call back
 
-# Estimate of time needed to complete: 
+# Estimate of time needed to complete: 20
 
-# Start time: 
+# Start time: 10:04
 
 # Finish time: 
 
